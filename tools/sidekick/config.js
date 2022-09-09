@@ -109,10 +109,7 @@ function hasSchema(host) {
       },
       {
         id: 'preflight',
-        condition: (s) => {
-          console.log(s);
-          return true;
-        },
+        condition: (s) => s.isHelix(),
         button: {
           text: 'Preflight',
           action: (_, s) => {
