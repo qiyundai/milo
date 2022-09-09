@@ -107,6 +107,31 @@ function hasSchema(host) {
           },
         },
       },
+      {
+        id: 'preflight',
+        condition: (s) => {
+          console.log(s);
+          return true;
+        },
+        button: {
+          text: 'Preflight',
+          action: (_, s) => {
+            const { config } = s;
+            // Change this for local development
+            const domain = `http://localhost:3000`;
+            const script = document.createElement('script');
+            script.onload = () => {
+              const skEvent = new CustomEvent(
+                'hlx:library-loaded',
+                { detail: { domain, libraries: config.libraries } },
+              );
+              document.dispatchEvent(skEvent);
+            };
+            script.src = `${domain}/tools/preflight/preflight.js`;
+            document.head.appendChild(script);
+          },
+        },
+      },
     ],
   });
 })();
