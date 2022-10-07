@@ -48,7 +48,7 @@
 
     if (!w.lana.debug && !w.lana.localhost && sampleRate <= Math.random() * 100) return;
 
-    const isCorpAdobeCom = window.location.href.indexOf('.corp.adobe.com') !== -1;
+    const isCorpAdobeCom = window.location.hostname.indexOf('.corp.adobe.com') !== -1;
 
     const endpoint = (isCorpAdobeCom || !o.useProd) ? o.endpointStage : o.endpoint;
     const queryParams = [
