@@ -17,10 +17,10 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
+    paths-ignore:
+      - '**/msal-browser-2.14.2.js'
   schedule:
     - cron: '18 6 * * 5'
-  paths-ignore:
-    - '**/msal-browser-2.14.2.js'
 
 jobs:
   analyze:
