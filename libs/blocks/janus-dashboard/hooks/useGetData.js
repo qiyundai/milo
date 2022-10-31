@@ -11,14 +11,27 @@ export default function useGetData(url) {
       setIsError(false);
       const fetchAndSetState = async () => {
         try {
-          const res = await fetch(url);
+          // FIXME: temporarily use hardcoded mocking data
+          // const res = await fetch(url);
 
-          if (!res.ok) {
-            throw new Error('res not ok!');
+          // if (!res.ok) {
+          //   throw new Error('res not ok!');
+          // }
+          // const results = await res.json();
+
+          let results = null;
+          if (/small/.test(url)) {
+            const { default: smallresults } = await import(
+              '../smallresults.js'
+            );
+            results = smallresults;
+          } else {
+            const { default: bigresults } = await import('../bigresults.js');
+            results = bigresults;
           }
-          const results = await res.json();
           if (!didCancel) setData(results);
         } catch (err) {
+          console.error(err);
           if (!didCancel) {
             setIsError(true);
           }
