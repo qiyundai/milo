@@ -1,25 +1,19 @@
-import { html, useContext, useState } from '../../../../../deps/htm-preact.js';
-import { FilterContext } from '../../../wrappers/FilterWrapper.js';
-import { PreprocessContext } from '../../../wrappers/PreprocessWrapper.js';
+import { html, useContext } from '../../../../../deps/htm-preact.js';
+// import { FilterContext } from '../../../wrappers/FilterWrapper.js';
 import GridContainer from '../../GridContainer.js';
 import GridItem from '../../GridItem.js';
-import { EXPECTED } from '../../constants.js';
-import { filterByTeam, filterByFeature } from '../../utils.js';
 import Clickable from '../../Clickable.js';
+import { PASSED } from '../../../utils/constants.js';
 
-export default function CountRow({ feature, getSetStatusCB, status, closeDetail, showDetail }) {
-  const { flattened } = useContext(PreprocessContext);
-  const { state: filterState } = useContext(FilterContext);
-  const { team } = filterState;
-  let total = 0;
-  let passed = 0;
-  const filteredData = filterByTeam(flattened, team);
-  filterByFeature(filteredData, feature).forEach((test) => {
-    if (test.search.status === 'passed') {
-      passed += 1;
-    }
-    total += 1;
-  });
+export default function CountRow({
+  feature,
+  data,
+  closeDetail,
+  showDetail,
+  showingDetail,
+}) {
+  const total = data.length;
+  const passed = data.filter((d) => d.status === PASSED).length;
   const failed = total - passed;
   return html`
     <${GridContainer}>
@@ -27,27 +21,20 @@ export default function CountRow({ feature, getSetStatusCB, status, closeDetail,
         <span class="feature-row-head">${feature}</span>
       </${GridItem}>
       <${GridItem}>
-        <${Clickable} 
-          onClick=${status == null && showDetail ? closeDetail : getSetStatusCB(null)}
-        >
-          ${total}
-          ${status === null && showDetail ? html`<hr />` : null}
-        </${Clickable}>
+        ${total}
       </${GridItem}>
       <${GridItem}>
-        <${Clickable} 
-          onClick=${status === 'passed' && showDetail ? closeDetail : getSetStatusCB('passed')}
-        >
-          ${passed}
-          ${status === 'passed' && showDetail ? html`<hr />` : null}
-        </${Clickable}>
+        ${passed}
       </${GridItem}>
       <${GridItem}>
-        <${Clickable} 
-          onClick=${status === 'failed' && showDetail ? closeDetail : getSetStatusCB('failed')}
-        >
-          ${failed}
-          ${status === 'failed' && showDetail ? html`<hr />` : null}
+        ${failed}
+      </${GridItem}>
+
+      <${GridItem}>
+        <${Clickable} >
+          <div onClick=${showingDetail ? closeDetail : showDetail}>
+            ${showingDetail ? 'Collapse' : 'Expand'}
+          </div>
         </${Clickable}>
       </${GridItem}>
     <//>`;

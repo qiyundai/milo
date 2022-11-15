@@ -1,4 +1,5 @@
 import { useState, useEffect } from '../../../deps/htm-preact.js';
+import { fetchData } from '../utils/utils.js';
 
 export default function useGetData(url) {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,16 +20,7 @@ export default function useGetData(url) {
           // }
           // const results = await res.json();
 
-          let results = null;
-          if (/small/.test(url)) {
-            const { default: smallresults } = await import(
-              '../smallresults.js'
-            );
-            results = smallresults;
-          } else {
-            const { default: bigresults } = await import('../bigresults.js');
-            results = bigresults;
-          }
+          const results = await fetchData(url);
           if (!didCancel) setData(results);
         } catch (err) {
           console.error(err);
@@ -38,7 +30,7 @@ export default function useGetData(url) {
         }
         if (!didCancel) setIsLoading(false);
       };
-      setTimeout(fetchAndSetState, 2000);
+      setTimeout(fetchAndSetState, 2);
     };
     fetchResults();
     return () => {

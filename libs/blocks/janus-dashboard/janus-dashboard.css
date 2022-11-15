@@ -132,3 +132,59 @@
   position: relative;
   height: 400px;
 }
+
+.summary-card {
+  border: 1px;
+  border-color: grey;
+  border-style: solid;
+  padding: 2em;
+  width: 400px;
+}
+
+.summary-card .date {
+  font-weight: 100;
+  font-size:medium;
+}
+
+.summary-card .branch {
+  font-weight: 400;
+  font-size:medium;
+  width:200px;
+}
+
+.summary-card .status {
+  font-weight: 800;
+  font-size:b;
+  width:200px;
+}
+
+.summary-card .cnt-percent {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.summary-card .percent {
+  font-weight: 500;
+  font-size:2em;
+  width:200px;
+}
+
+.summary-card .cnt {
+  font-weight: 800;
+  font-size:5em;
+  width:200px;
+}
+
+.summary-card .details {
+  width:200px;
+}
+
+.dropdown .option {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:9999;
+  color:white;
+}

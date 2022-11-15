@@ -8,11 +8,11 @@ export default function DetailRows({ data }) {
   const rows = data.map((d) => html`<${DetailRow} data=${d} />`);
   return html`<table class="detail-rows-table">
     <tr class="detail-rows-row">
-      <th>File</th>
-      <th>Project Name</th>
+      <th>Branch</th>
       <th>Status</th>
-      <th>Title</th>
-      <th>Tags</th>
+      <th>Browser</th>
+      <th>Env</th>
+      <th>Tag</th>
       <th>Error Msg</th>
     </tr>
     ${rows}

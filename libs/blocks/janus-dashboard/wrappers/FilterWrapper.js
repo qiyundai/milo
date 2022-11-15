@@ -10,8 +10,9 @@ export const ActionTypes = {
 const initialState = {
   showDetail: false,
   status: null,
-  team: null,
+  consumer: null,
   feature: null,
+  branch: null,
 };
 
 const reducer = (state, action) => {
