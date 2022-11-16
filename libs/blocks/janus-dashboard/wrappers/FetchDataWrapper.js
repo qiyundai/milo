@@ -5,12 +5,12 @@ import Clickable from '../components/Clickable.js';
 
 function extractInfo(data) {
   const branchSet = new Set();
-  const consumerSet = new Set();
+  const envSet = new Set();
   data.forEach((d) => {
     branchSet.add(d.branch);
-    consumerSet.add(d.env);
+    envSet.add(d.env);
   });
-  return { branchSet, consumerSet };
+  return { branchSet, envSet };
 }
 
 export const DataContext = createContext();
@@ -30,12 +30,12 @@ export default function FetchDataWrapper({ children }) {
     return html`<${Loader} />`;
   }
 
-  const { branchSet, consumerSet } = extractInfo(data);
+  const { branchSet, envSet } = extractInfo(data);
 
   const dataValue = {
     data,
     branches: Array.from(branchSet),
-    consumers: Array.from(consumerSet),
+    envs: Array.from(envSet),
     // FIXME: remove hardcoded value
     testId: '6365935b0fbc1154362fef8f',
   };

@@ -20,15 +20,15 @@ function groupByFeatureNames(data) {
 export default function DetailSection() {
   const { state: filterState } = useContext(FilterContext);
   const { data } = useContext(DataContext);
-  const { consumer, branch, status } = filterState;
+  const { env, branch, status } = filterState;
   const filteredData = data
-    .filter((d) => !consumer || d.env === consumer)
+    .filter((d) => !env || d.env === env)
     .filter((d) => !branch || d.branch === branch)
     .filter((d) => !status || d.status === status);
 
   const titleRow = html`
     <${GridContainer}>
-      <${GridItem}>${consumer || 'All'}
+      <${GridItem}>${env || 'All'}
       </${GridItem}>
     </${GridContainer}>
     <${GridContainer}>

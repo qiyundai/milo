@@ -10,7 +10,7 @@ export const ActionTypes = {
 const initialState = {
   showDetail: false,
   status: null,
-  consumer: null,
+  env: null,
   feature: null,
   branch: null,
 };

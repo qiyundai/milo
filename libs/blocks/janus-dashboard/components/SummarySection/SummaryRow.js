@@ -13,10 +13,10 @@ import {
 import { PASSED } from '../../utils/constants.js';
 
 function SummaryRow() {
-  const { data, testId, branches, consumers } = useContext(DataContext);
+  const { data, testId, branches, envs } = useContext(DataContext);
   const {
     dispatch,
-    state: { branch, consumer },
+    state: { branch, env },
   } = useContext(FilterContext);
 
   const totalCnt = data.length;
@@ -28,21 +28,27 @@ function SummaryRow() {
   const ms = extractTimeFromTestId(testId);
   const date = convertTimeToShortDate(ms);
 
-  const branchOptions = [{ value: null, text: 'All' }, ...branches.map((b) => ({ value: b, text: b }))];
-  const consumerOptions = [{ value: null, text: 'All' }, ...consumers.map((c) => ({ value: c, text: c }))];
+  const branchOptions = [
+    { value: null, text: 'All' },
+    ...branches.map((b) => ({ value: b, text: b })),
+  ];
+  const envOptions = [
+    { value: null, text: 'All' },
+    ...envs.map((c) => ({ value: c, text: c })),
+  ];
 
   return html`<div class="section-divider">
   <${Dropdown} options=${branchOptions} onSelect=${(value) =>
     dispatch({
       type: ActionTypes.SET_STATE,
       payload: { branch: value, showDetail: true },
-    })} value=${branch} defaultOption=${{ value: null, text: 'All' }} />
+    })} value=${branch} labelText="Branch" />
 
-  <${Dropdown} options=${consumerOptions} onSelect=${(value) =>
+  <${Dropdown} options=${envOptions} onSelect=${(value) =>
     dispatch({
       type: ActionTypes.SET_STATE,
-      payload: { consumer: value, showDetail: true },
-    })} value=${consumer}  defaultOption=${{ value: null, text: 'All' }} />
+      payload: { env: value, showDetail: true },
+    })} value=${env} labelText="Env" />
 
     <${GridContainer} spaceAround>
       <${GridItem}>

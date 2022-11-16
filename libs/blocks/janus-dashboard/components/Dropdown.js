@@ -1,6 +1,6 @@
 import { html, useContext, useState } from '../../../deps/htm-preact.js';
 
-export default function Dropdown({ options, onSelect, value }) {
+export default function Dropdown({ options, onSelect, value, labelText }) {
   const optionSelections = options.map(
     (o, i) => html`<option
       key=${o}
@@ -12,6 +12,7 @@ export default function Dropdown({ options, onSelect, value }) {
   );
 
   return html`<div>
+    <label>${labelText}</label>
     <select
       onChange=${(e) => {
         onSelect(e.target.value);

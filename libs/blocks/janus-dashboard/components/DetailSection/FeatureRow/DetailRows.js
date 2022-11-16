@@ -5,9 +5,12 @@ export default function DetailRows({ data }) {
   if (data.length === 0) {
     return 'No data for this status';
   }
-  const rows = data.map((d) => html`<${DetailRow} data=${d} />`);
+  const rows = data.map(
+    (d, index) => html`<${DetailRow} data=${d} rowNum=${index} />`,
+  );
   return html`<table class="detail-rows-table">
     <tr class="detail-rows-row">
+      <th>#</th>
       <th>Branch</th>
       <th>Status</th>
       <th>Browser</th>

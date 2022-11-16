@@ -101,7 +101,7 @@
   border: 1px solid white;
   border-collapse: collapse;
   border-spacing: 10px;
-  width: 1600px;
+  min-width: 1600px;
 }
 
 .detail-rows-cell {
