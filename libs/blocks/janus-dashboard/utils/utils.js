@@ -1,8 +1,10 @@
 export const fetchData = async (url) => {
-  if (/small/.test(url)) {
-    return (await import('../persisted-results.js')).results;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error('res not ok!');
   }
-  return (await import('../persisted-results.js')).results;
+  const results = await res.json();
+  return results.data;
 };
 
 export function extractTimeFromTestId(testId) {
@@ -15,7 +17,7 @@ export function extractTimeFromTestId(testId) {
   }
 
   return ms;
-};
+}
 
 export function convertTimeToShortDate(ms) {
   return new Date(ms).toISOString().split('T')[0].replace(/-/g, '/');

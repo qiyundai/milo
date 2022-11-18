@@ -1,4 +1,10 @@
-import { html, createContext, useState } from '../../../deps/htm-preact.js';
+import {
+  html,
+  createContext,
+  useState,
+  useContext,
+} from '../../../deps/htm-preact.js';
+import { MetaDataContext } from './MetaDataWrapper.js';
 import Loader from '../components/Loader.js';
 import useGetData from '../hooks/useGetData.js';
 import Clickable from '../components/Clickable.js';
@@ -16,13 +22,12 @@ function extractInfo(data) {
 export const DataContext = createContext();
 
 export default function FetchDataWrapper({ children }) {
+  const { dataapi } = useContext(MetaDataContext);
   const [small, setSmall] = useState(false);
   const toggleSmall = () => {
     setSmall((s) => !s);
   };
-  const { isLoading, data, isError } = useGetData(
-    `http://localhost:3002/testresult/${small ? 'small' : ''}`
-  );
+  const { isLoading, data, isError } = useGetData(dataapi);
   if (isError) {
     return 'Error loading data!';
   }
@@ -36,8 +41,6 @@ export default function FetchDataWrapper({ children }) {
     data,
     branches: Array.from(branchSet),
     envs: Array.from(envSet),
-    // FIXME: remove hardcoded value
-    testId: '6365935b0fbc1154362fef8f',
   };
 
   return html`

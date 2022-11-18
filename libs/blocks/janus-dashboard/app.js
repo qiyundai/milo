@@ -1,8 +1,10 @@
 import { html } from '../../deps/htm-preact.js';
+import ErrorBoundary from './wrappers/ErrorBoundary.js';
+import MetaDataWrapper from './wrappers/MetaDataWrapper.js';
+import FetchDataWrapper from './wrappers/FetchDataWrapper.js';
 // import { PreprocessWrapper } from './wrappers/PreprocessWrapper.js';
 import FilterWrapper from './wrappers/FilterWrapper.js';
 import Layout from './components/Layout.js';
-import FetchDataWrapper from './wrappers/FetchDataWrapper.js';
 
 function DashboardApp() {
   const searchParams = new URLSearchParams(document.location.search);
@@ -11,11 +13,15 @@ function DashboardApp() {
   }
 
   return html`
-    <${FetchDataWrapper}>
-      <${FilterWrapper}>
-        <${Layout} />
-      </${FilterWrapper}>
-    </${FetchDataWrapper}>
+    <${ErrorBoundary}>
+      <${MetaDataWrapper}>
+        <${FetchDataWrapper}>
+          <${FilterWrapper}>
+            <${Layout} />
+          </${FilterWrapper}>
+        </${FetchDataWrapper}>
+      </${MetaDataWrapper}>
+    </${ErrorBoundary}>
   `;
 }
 

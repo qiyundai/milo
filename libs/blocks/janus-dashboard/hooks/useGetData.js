@@ -12,14 +12,6 @@ export default function useGetData(url) {
       setIsError(false);
       const fetchAndSetState = async () => {
         try {
-          // FIXME: temporarily use hardcoded mocking data
-          // const res = await fetch(url);
-
-          // if (!res.ok) {
-          //   throw new Error('res not ok!');
-          // }
-          // const results = await res.json();
-
           const results = await fetchData(url);
           if (!didCancel) setData(results);
         } catch (err) {

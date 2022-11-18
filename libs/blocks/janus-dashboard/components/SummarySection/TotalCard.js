@@ -4,8 +4,9 @@ import GridContainer from '../GridContainer.js';
 import GridItem from '../GridItem.js';
 import Clickable from '../Clickable.js';
 
-export default function TotalCard({ status, branch, env, date, cnt }) {
+export default function TotalCard({ status, date, cnt }) {
   const { dispatch, state: filterState } = useContext(FilterContext);
+  const { branch, env } = filterState;
   const resetStatusFilter = () => {
     dispatch({
       type: ActionTypes.SET_STATE,
@@ -13,6 +14,8 @@ export default function TotalCard({ status, branch, env, date, cnt }) {
     });
   };
 
+  const displayEnv = env?.toUpperCase() || 'All Envs';
+  const displayBranch = branch?.toUpperCase() || 'All Branches';
   return html`<div class="summary-card">
   <${GridContainer} flexEnd>
     <${GridItem}>
@@ -24,7 +27,7 @@ export default function TotalCard({ status, branch, env, date, cnt }) {
 
   <${GridContainer} spaceAround>
     <${GridItem}>
-      <div class="branch">${env?.toUpperCase()} ${branch?.toUpperCase()}</div>
+      <div class="branch">${displayEnv} ${displayBranch}</div>
     </${GridItem}>
   </${GridContainer}>
 

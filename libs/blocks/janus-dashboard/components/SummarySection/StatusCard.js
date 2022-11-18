@@ -7,6 +7,9 @@ import Clickable from '../Clickable.js';
 export default function StatusCard({ status, date, cnt, percent }) {
   const { dispatch, state: filterState } = useContext(FilterContext);
   const { branch, env } = filterState;
+
+  const displayEnv = env?.toUpperCase() || 'All Envs';
+  const displayBranch = branch?.toUpperCase() || 'All Branches';
   return html`<div class="summary-card">
 
   <${GridContainer} flexEnd>
@@ -17,9 +20,7 @@ export default function StatusCard({ status, date, cnt, percent }) {
 
   <${GridContainer} spaceAround>
     <${GridItem}>
-      <div class="branch">${env?.toUpperCase() || 'All Envs'} ${
-    branch?.toUpperCase() || 'All Branches'
-  }</div>
+    <div class="branch">${displayEnv} ${displayBranch}</div>
     </${GridItem}>
   </${GridContainer}>
 

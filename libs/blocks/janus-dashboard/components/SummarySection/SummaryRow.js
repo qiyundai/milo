@@ -13,11 +13,19 @@ import {
 import { PASSED } from '../../utils/constants.js';
 
 function SummaryRow() {
-  const { data, testId, branches, envs } = useContext(DataContext);
+  const {
+    data: unfilteredData,
+    testId,
+    branches,
+    envs,
+  } = useContext(DataContext);
   const {
     dispatch,
     state: { branch, env },
   } = useContext(FilterContext);
+  const data = unfilteredData
+    .filter((d) => !env || d.env === env)
+    .filter((d) => !branch || d.branch === branch);
 
   const totalCnt = data.length;
   const totalPassedCnt = data.filter((d) => d.status === PASSED).length;

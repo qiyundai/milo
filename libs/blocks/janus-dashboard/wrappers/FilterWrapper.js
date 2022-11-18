@@ -35,7 +35,6 @@ export const FilterContext = createContext();
 
 function FilterWrapper({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log({ filterState: state });
   return html` <${FilterContext.Provider} value=${{ state, dispatch }}> ${children} <//> `;
 }
 
