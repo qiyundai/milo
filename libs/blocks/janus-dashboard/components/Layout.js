@@ -9,7 +9,7 @@ function Layout() {
   } = useContext(FilterContext);
   const detailSection = html`<${DetailSection} />`;
   return html`
-    <div>
+    <div class='whole-block'>
       <${SummarySection} />
       ${detailSection}
     </div>

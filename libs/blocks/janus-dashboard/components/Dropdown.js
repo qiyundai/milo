@@ -11,9 +11,10 @@ export default function Dropdown({ options, onSelect, value, labelText }) {
     </option>`
   );
 
-  return html`<div>
-    <label>${labelText}</label>
+  return html`<div class="dropdown">
+    <span class="label">${labelText}</span>
     <select
+      class="select"
       onChange=${(e) => {
         onSelect(e.target.value);
       }}

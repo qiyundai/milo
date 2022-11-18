@@ -1,6 +1,21 @@
+:root {
+  --main-background-color: #676767;
+  --main-text-color: white;
+  --main-blue: #25a1fc;
+  --main-red: #ff6850;
+  --main-green: #69c973;
+  --main-yellow: #ffb400;
+  --secondary-background-color: grey;
+  --selected-background-color: #343434;
+  --selected-text-color: #ececec;
+  --selected-text-alternative-color: #292929;
+}
+
 .janus-dashboard {
-  background-color: #676767;
-  color: white;
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
+  padding-top: 3em;
+  padding-bottom: 3em;
 }
 
 .paper {
@@ -19,7 +34,7 @@
 
 
 .card {
-  background-color: grey;
+  background-color: var(--secondary-background-color);
   padding: 3em;
 }
 
@@ -31,9 +46,9 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  /* padding: 0;
-   margin: 0; */
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .flex-end {
@@ -71,19 +86,19 @@
 }
 
 .blue {
-  color: #25a1fc;
+  color: var(--main-blue);
 }
 
 .red {
-  color: #ff6850;
+  color: var(--main-red);
 }
 
 .green {
-  color: #69c973;
+  color: var(--main-green);
 }
 
 .yellow {
-  color : #ffb400;
+  color : var(--main-yellow);
 }
 
 .button {
@@ -98,14 +113,14 @@
 }
 
 .detail-rows-table {
-  border: 1px solid white;
+  /* border: 0px solid var(--main-text-color); */
   border-collapse: collapse;
   border-spacing: 10px;
   min-width: 1600px;
 }
 
 .detail-rows-cell {
-  border: 1px solid white;
+  /* border: 0px solid var(--main-text-color); */
   padding: 10px;
   font-size: 80%;
 }
@@ -115,7 +130,7 @@
 }
 
 .detail-rows-row:nth-child(odd) {
-  background-color: #cc7979;
+  background-color: var(--selected-text-alternative-color);
 }
 
 .loader-text {
@@ -135,10 +150,12 @@
 
 .summary-card {
   border: 1px;
-  border-color: grey;
+  border-color: var(--secondary-background-color);
   border-style: solid;
+  border-radius: 1%;
   padding: 2em;
   width: 400px;
+  height:250px;
 }
 
 .summary-card .date {
@@ -154,8 +171,8 @@
 
 .summary-card .status {
   font-weight: 800;
-  font-size:b;
-  width:200px;
+  font-size:large;
+  width: 200px;
 }
 
 .summary-card .cnt-percent {
@@ -163,28 +180,60 @@
   margin-bottom: 2em;
 }
 
-.summary-card .percent {
+.summary-card .cnt-percent .percent {
   font-weight: 500;
   font-size:2em;
-  width:200px;
 }
 
-.summary-card .cnt {
+.summary-card .cnt-percent .cnt {
   font-weight: 800;
   font-size:5em;
-  width:200px;
+}
+
+.summary-card .cnt-percent .cnt-total {
+  font-weight: 700;
+  font-size: 3em;
 }
 
 .summary-card .details {
   width:200px;
 }
 
-.dropdown .option {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:9999;
-  color:white;
+.dropdown {
+  text-align: left;
+}
+
+.dropdown .label {
+  font-weight: 400;
+  font-size: medium;
+}
+
+.dropdown .select {
+  color: var(--main-text-color);
+  background-color: var(--main-background-color);
+  width: 150px;
+  border: 2px;
+  border-color: grey;
+  border-style: solid;
+  padding-left: 1em;
+}
+
+.unselected-table-row {
+  background-color: var(--secondary-background-color);
+  color: var(--main-text-color);
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.selected-table-row {
+  background-color: var(--selected-background-color);
+  color: var(--selected-text-color);
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.selected-background {
+  background-color: var(--selected-background-color);
+  color: var(--selected-text-color);
+  margin-bottom: 2em;
 }

@@ -5,7 +5,6 @@ import { FilterContext, ActionTypes } from '../../wrappers/FilterWrapper.js';
 import { DataContext } from '../../wrappers/FetchDataWrapper.js';
 import StatusCard from './StatusCard.js';
 import TotalCard from './TotalCard.js';
-import Dropdown from '../Dropdown.js';
 import {
   extractTimeFromTestId,
   convertTimeToShortDate,
@@ -13,14 +12,8 @@ import {
 import { PASSED } from '../../utils/constants.js';
 
 function SummaryRow() {
+  const { data: unfilteredData, testId } = useContext(DataContext);
   const {
-    data: unfilteredData,
-    testId,
-    branches,
-    envs,
-  } = useContext(DataContext);
-  const {
-    dispatch,
     state: { branch, env },
   } = useContext(FilterContext);
   const data = unfilteredData
@@ -36,28 +29,7 @@ function SummaryRow() {
   const ms = extractTimeFromTestId(testId);
   const date = convertTimeToShortDate(ms);
 
-  const branchOptions = [
-    { value: null, text: 'All' },
-    ...branches.map((b) => ({ value: b, text: b })),
-  ];
-  const envOptions = [
-    { value: null, text: 'All' },
-    ...envs.map((c) => ({ value: c, text: c })),
-  ];
-
   return html`<div class="section-divider">
-  <${Dropdown} options=${branchOptions} onSelect=${(value) =>
-    dispatch({
-      type: ActionTypes.SET_STATE,
-      payload: { branch: value, showDetail: true },
-    })} value=${branch} labelText="Branch" />
-
-  <${Dropdown} options=${envOptions} onSelect=${(value) =>
-    dispatch({
-      type: ActionTypes.SET_STATE,
-      payload: { env: value, showDetail: true },
-    })} value=${env} labelText="Env" />
-
     <${GridContainer} spaceAround>
       <${GridItem}>
         <${TotalCard} status='total' date=${date} cnt=${totalCnt} />

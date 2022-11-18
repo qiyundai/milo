@@ -35,20 +35,24 @@ export default function FeatureRow({ data, feature }) {
   const showDetail = () => {
     dispatch({ type: ActionTypes.SHOW_DETAIL });
   };
-
-  const countRow = html`<${CountRow}
-    data=${data}
-    feature=${feature}
-    closeDetail=${closeDetail}
-    showDetail=${showDetail}
-    showingDetail=${state.showDetail}
-  />`;
   const detailRows = state.showDetail
     ? html`<${DetailRows} data=${data} />`
     : null;
 
-  return html` <div>
-    <div>${countRow}</div>
-    <${GridContainer} spaceAround><${GridItem}>${detailRows}</${GridItem}><//>
+  return html` <div style="margin-bottom: 1em;">
+    <${CountRow} 
+      data=${data}
+      feature=${feature}
+      closeDetail=${closeDetail}
+      showDetail=${showDetail}
+      showingDetail=${state.showDetail} 
+    />
+    <${GridContainer} spaceAround>
+      <${GridItem}>
+        <div class='selected-background'>
+          ${detailRows}
+        </div>
+      </${GridItem}>
+    </${GridContainer}>
   </div>`;
 }

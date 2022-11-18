@@ -2,8 +2,7 @@ import { html, useContext } from '../../../../deps/htm-preact.js';
 // import { PreprocessContext } from '../../wrappers/PreprocessWrapper.js';
 import { FilterContext } from '../../wrappers/FilterWrapper.js';
 import FeatureRow from './FeatureRow/index.js';
-import GridContainer from '../GridContainer.js';
-import GridItem from '../GridItem.js';
+import TitleRow from './TitleRow/index.js';
 import { DataContext } from '../../wrappers/FetchDataWrapper.js';
 
 function groupByFeatureNames(data) {
@@ -26,19 +25,6 @@ export default function DetailSection() {
     .filter((d) => !branch || d.branch === branch)
     .filter((d) => !status || d.status === status);
 
-  const titleRow = html`
-    <${GridContainer}>
-      <${GridItem}>${env || 'All'}
-      </${GridItem}>
-    </${GridContainer}>
-    <${GridContainer}>
-      <${GridItem}><//>
-      <${GridItem}>Total<//>
-      <${GridItem}>Passed<//>
-      <${GridItem}>Failed<//>
-      <${GridItem}><//>
-    </${GridContainer}>`;
-
   const featureMap = groupByFeatureNames(filteredData);
 
   const featureRows = Array.from(featureMap.keys()).map(
@@ -50,5 +36,5 @@ export default function DetailSection() {
       />`
   );
 
-  return html`<div>${titleRow}${featureRows}</div>`;
+  return html`<div><${TitleRow} env=${env}></${TitleRow}>${featureRows}</div>`;
 }

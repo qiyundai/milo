@@ -1,13 +1,7 @@
-import {
-  html,
-  createContext,
-  useState,
-  useContext,
-} from '../../../deps/htm-preact.js';
+import { html, createContext, useContext } from '../../../deps/htm-preact.js';
 import { MetaDataContext } from './MetaDataWrapper.js';
 import Loader from '../components/Loader.js';
 import useGetData from '../hooks/useGetData.js';
-import Clickable from '../components/Clickable.js';
 
 function extractInfo(data) {
   const branchSet = new Set();
@@ -23,10 +17,6 @@ export const DataContext = createContext();
 
 export default function FetchDataWrapper({ children }) {
   const { dataapi } = useContext(MetaDataContext);
-  const [small, setSmall] = useState(false);
-  const toggleSmall = () => {
-    setSmall((s) => !s);
-  };
   const { isLoading, data, isError } = useGetData(dataapi);
   if (isError) {
     return 'Error loading data!';
@@ -43,11 +33,5 @@ export default function FetchDataWrapper({ children }) {
     envs: Array.from(envSet),
   };
 
-  return html`
-  <${DataContext.Provider} value=${dataValue}>
-    ${children}
-    <${Clickable} onClick=${toggleSmall}>
-      switch to ${small ? 'big' : 'small'}
-    </${Clickable}>
-  <//>`;
+  return html` <${DataContext.Provider} value=${dataValue}> ${children} <//>`;
 }

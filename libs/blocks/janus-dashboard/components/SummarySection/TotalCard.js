@@ -1,12 +1,19 @@
 import { html, useContext } from '../../../../deps/htm-preact.js';
 import { FilterContext, ActionTypes } from '../../wrappers/FilterWrapper.js';
+import { DataContext } from '../../wrappers/FetchDataWrapper.js';
 import GridContainer from '../GridContainer.js';
 import GridItem from '../GridItem.js';
 import Clickable from '../Clickable.js';
+import Dropdown from '../Dropdown.js';
 
 export default function TotalCard({ status, date, cnt }) {
   const { dispatch, state: filterState } = useContext(FilterContext);
+  const { envs } = useContext(DataContext);
   const { branch, env } = filterState;
+  const envOptions = [
+    { value: null, text: 'All' },
+    ...envs.map((c) => ({ value: c, text: c })),
+  ];
   const resetStatusFilter = () => {
     dispatch({
       type: ActionTypes.SET_STATE,
@@ -15,7 +22,7 @@ export default function TotalCard({ status, date, cnt }) {
   };
 
   const displayEnv = env?.toUpperCase() || 'All Envs';
-  const displayBranch = branch?.toUpperCase() || 'All Branches';
+  const displayBranch = branch?.toUpperCase() || 'MAIN';
   return html`<div class="summary-card">
   <${GridContainer} flexEnd>
     <${GridItem}>
@@ -23,13 +30,17 @@ export default function TotalCard({ status, date, cnt }) {
     </${GridItem}>
   </${GridContainer}>
 
-  <hr />
-
-  <${GridContainer} spaceAround>
+  <${GridContainer} flexStart>
     <${GridItem}>
-      <div class="branch">${displayEnv} ${displayBranch}</div>
+      <${Dropdown} options=${envOptions} onSelect=${(value) =>
+        dispatch({
+          type: ActionTypes.SET_STATE,
+          payload: { env: value, showDetail: true },
+        })} value=${env} labelText="Env" />
     </${GridItem}>
   </${GridContainer}>
+
+  <hr />
 
   <${GridContainer} spaceAround>
     <${GridItem}>
@@ -40,7 +51,7 @@ export default function TotalCard({ status, date, cnt }) {
   <${GridContainer} spaceAround>
     <${GridItem}>
       <div class="cnt-percent">
-        <span class="cnt">
+        <span class="cnt-total">
           ${cnt}
         </span>
       </div>

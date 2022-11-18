@@ -16,26 +16,28 @@ export default function CountRow({
   const passed = data.filter((d) => d.status === PASSED).length;
   const failed = total - passed;
   return html`
-    <${GridContainer}>
-      <${GridItem}>
-        <span class="feature-row-head">${feature}</span>
-      </${GridItem}>
-      <${GridItem}>
-        ${total}
-      </${GridItem}>
-      <${GridItem}>
-        ${passed}
-      </${GridItem}>
-      <${GridItem}>
-        ${failed}
-      </${GridItem}>
+    <div class=${showingDetail ? 'selected-table-row' : 'unselected-table-row'}>
+      <${GridContainer}>
+        <${GridItem}>
+          <span class="feature-row-head">${feature}</span>
+        </${GridItem}>
+        <${GridItem}>
+          ${total}
+        </${GridItem}>
+        <${GridItem}>
+          ${passed}
+        </${GridItem}>
+        <${GridItem}>
+          ${failed}
+        </${GridItem}>
 
-      <${GridItem}>
-        <${Clickable} >
-          <div onClick=${showingDetail ? closeDetail : showDetail}>
-            ${showingDetail ? 'Collapse' : 'Expand'}
-          </div>
-        </${Clickable}>
-      </${GridItem}>
-    <//>`;
+        <${GridItem}>
+          <${Clickable} >
+            <div onClick=${showingDetail ? closeDetail : showDetail}>
+              ${showingDetail ? 'Collapse' : 'Expand'}
+            </div>
+          </${Clickable}>
+        </${GridItem}>
+      </${GridContainer}>
+    </div>`;
 }

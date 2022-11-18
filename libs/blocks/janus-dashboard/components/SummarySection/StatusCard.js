@@ -9,7 +9,7 @@ export default function StatusCard({ status, date, cnt, percent }) {
   const { branch, env } = filterState;
 
   const displayEnv = env?.toUpperCase() || 'All Envs';
-  const displayBranch = branch?.toUpperCase() || 'All Branches';
+  const displayBranch = branch?.toUpperCase() || 'MAIN';
   return html`<div class="summary-card">
 
   <${GridContainer} flexEnd>
