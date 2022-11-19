@@ -489,10 +489,39 @@ function initSidekick() {
   }
 }
 
+export function appendHtmlPostfix() {
+  const pageUrl = new URL(window.location.href);
+  // DEBUG
+  // if (!pageUrl.pathname.endsWith('.html')) return;
+  const HAS_EXTENSION = /\..*$/;
+  const shouldNotConvert = (href) => !(href.startsWith('/') || href.startsWith(pageUrl.origin))
+    || href.endsWith('/')
+    || href.includes('/fragments/')
+    || HAS_EXTENSION.test(href.split('/').pop());
+
+  const links = document.querySelectorAll('[href]');
+  links.forEach((el) => {
+    const href = el.getAttribute('href');
+    console.log(href);
+    if (shouldNotConvert(href)) return;
+
+    try {
+      const linkUrl = new URL(href.startsWith('http') ? href : `${pageUrl.origin}${href}`);
+      if (linkUrl.pathname && !linkUrl.pathname.endsWith('.html')) {
+        linkUrl.pathname = `${linkUrl.pathname}.html`;
+        console.log('converting ', href, 'to ', linkUrl.href);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}
+
 export async function loadArea(area = document) {
   const config = getConfig();
   const isDoc = area === document;
 
+  await appendHtmlPostfix(area);
   await decoratePlaceholders(area, config);
 
   if (isDoc) {
