@@ -59,7 +59,7 @@ function hasSchema(host) {
               );
               document.dispatchEvent(skEvent);
             };
-            script.src = `${domain}/libs/ui/library/library.js`;
+            script.src = `${domain}/libs/templates/library/library.js`;
             document.head.appendChild(script);
           },
         },
@@ -105,6 +105,17 @@ function hasSchema(host) {
               )}`,
               'check-schema',
             );
+          },
+        },
+      },
+      {
+        id: 'ost',
+        condition: (s) => s.isEditor(),
+        button: {
+          text: 'OST',
+          action: (_, s) => {
+            const { config } = s;
+            window.open(`https://${config.innerHost}/tools/ost`, 'milo-tools');
           },
         },
       },
