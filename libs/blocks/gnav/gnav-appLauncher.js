@@ -32,7 +32,7 @@ function decorateAppsMenu(profileEl, appsDom, toggle) {
       target: '_blank',
     });
 
-    anchor.href = localizeLink(anchor.href, true);
+    anchor.href = localizeLink(anchor.href);
     li.replaceChildren();
     link.append(image, title);
     li.appendChild(link);
