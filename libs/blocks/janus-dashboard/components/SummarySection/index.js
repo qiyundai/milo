@@ -3,7 +3,7 @@ import SummaryRow from './SummaryRow.js';
 
 export default function SummarySection() {
   return html`
-    <div class="section-divider">
+    <div class="mb5">
         <${SummaryRow} />
     </div>
   `;

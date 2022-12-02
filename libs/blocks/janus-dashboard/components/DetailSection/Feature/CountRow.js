@@ -19,19 +19,19 @@ export default function CountRow({
     <div class=${showingDetail ? 'selected-table-row' : 'unselected-table-row'}>
       <${GridContainer}>
         <${GridItem}>
-          <span class="feature-row-head">${feature}</span>
+          <span class="pl1 bold">${feature}</span>
         </${GridItem}>
-        <${GridItem}>
-          ${total}
+        <${GridItem} centered>
+          <span class='bold'>${total}</span>
         </${GridItem}>
-        <${GridItem}>
-          ${passed}
+        <${GridItem} centered>
+        <span class='bold'>${passed}</span>
         </${GridItem}>
-        <${GridItem}>
-          ${failed}
+        <${GridItem} centered>
+        <span class='bold'>${failed}</span>
         </${GridItem}>
 
-        <${GridItem}>
+        <${GridItem} centered>
           <${Clickable} >
             <div onClick=${showingDetail ? closeDetail : showDetail}>
               ${showingDetail ? 'Collapse' : 'Expand'}

@@ -6,16 +6,18 @@ import FetchDataWrapper from './wrappers/FetchDataWrapper.js';
 import FilterWrapper from './wrappers/FilterWrapper.js';
 import Layout from './components/Layout.js';
 
-function DashboardApp() {
+function DashboardApp({ dataLink }) {
   const searchParams = new URLSearchParams(document.location.search);
   if (searchParams.has('testId')) {
     console.log(new URLSearchParams(document.location.search).get('testId'));
   }
 
+  console.log({ dataLink });
+
   return html`
     <${ErrorBoundary}>
       <${MetaDataWrapper}>
-        <${FetchDataWrapper}>
+        <${FetchDataWrapper} dataLink=${dataLink}>
           <${FilterWrapper}>
             <${Layout} />
           </${FilterWrapper}>

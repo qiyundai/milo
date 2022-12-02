@@ -24,7 +24,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function FeatureRow({ data, feature }) {
+export default function Feature({ data, feature }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   // const getSetStatusCB = (status) => () => {
   //   dispatch({ type: ActionTypes.SET_STATUS, payload: status });
@@ -39,20 +39,14 @@ export default function FeatureRow({ data, feature }) {
     ? html`<${DetailRows} data=${data} />`
     : null;
 
-  return html` <div style="margin-bottom: 1em;">
-    <${CountRow} 
+  return html` <div class='mb1'>
+    <${CountRow}
       data=${data}
       feature=${feature}
       closeDetail=${closeDetail}
       showDetail=${showDetail}
-      showingDetail=${state.showDetail} 
+      showingDetail=${state.showDetail}
     />
-    <${GridContainer} spaceAround>
-      <${GridItem}>
-        <div class='selected-background'>
-          ${detailRows}
-        </div>
-      </${GridItem}>
-    </${GridContainer}>
+    <div class="selected-background text-centered">${detailRows}</div>
   </div>`;
 }

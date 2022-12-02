@@ -1,6 +1,8 @@
 export const fetchData = async (url) => {
   const res = await fetch(url);
-  if (!res.ok) {
+  const { ok, status, statusText } = res;
+  if (!ok) {
+    console.error(`${status}: ${statusText}`);
     throw new Error('res not ok!');
   }
   const results = await res.json();

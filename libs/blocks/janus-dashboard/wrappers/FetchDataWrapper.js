@@ -15,9 +15,10 @@ function extractInfo(data) {
 
 export const DataContext = createContext();
 
-export default function FetchDataWrapper({ children }) {
-  const { dataapi } = useContext(MetaDataContext);
-  const { isLoading, data, isError } = useGetData(dataapi);
+export default function FetchDataWrapper({ children, dataLink }) {
+  // const { dataapi } = useContext(MetaDataContext);
+  const { isLoading, data, isError } = useGetData(dataLink);
+
   if (isError) {
     return 'Error loading data!';
   }

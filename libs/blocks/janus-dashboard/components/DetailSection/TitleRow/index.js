@@ -4,13 +4,15 @@ import GridItem from '../../GridItem.js';
 
 export default function TitleRow({ env }) {
   return html`
-  <div style="margin-bottom: 2em; font-weight: 800;">
+  <div class='mb2 detail-section-title-row'>
     <${GridContainer}>
-      <${GridItem}>${env?.toUpperCase() || 'ALL'} MAIN<//>
-      <${GridItem}>Total<//>
-      <${GridItem}>Passed<//>
-      <${GridItem}>Failed<//>
-      <${GridItem}><//>
+      <${GridItem}><span class='pl1'>${env?.toUpperCase() || 'ALL'} MAIN</span><//>
+      <${GridItem} centered>Total<//>
+      <${GridItem} centered>Passed<//>
+      <${GridItem} centered>Failed<//>
+      <${GridItem} centered>
+        <input type="text" placeholder="Search..." />
+      <//>
     </${GridContainer}>
   </div>`;
 }

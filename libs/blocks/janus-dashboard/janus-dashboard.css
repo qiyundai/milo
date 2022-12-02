@@ -38,10 +38,6 @@
   padding: 3em;
 }
 
-.section-divider {
-  margin-bottom: 5em;
-}
-
 .grid-container {
   display: flex;
   flex-flow: row wrap;
@@ -59,9 +55,19 @@
   justify-content: space-around;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
+.whole-block {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
 .grid-item {
   /* margin: auto;
   text-align: 'center'; */
+  
   /* background: tomato;
   padding: 5px;
   width: 200px;
@@ -71,18 +77,13 @@
   color: white;
   font-weight: bold;
   font-size: 3em; */
-  /* margin: auto; */
-  text-align: center;
   flex-basis: 10%;
-}
-
-.feature-row-head {
-  font-weight: bold;
 }
 
 .clickable {
   cursor: pointer;
   text-decoration: underline;
+  text-decoration-color: inherit;
 }
 
 .blue {
@@ -101,6 +102,26 @@
   color : var(--main-yellow);
 }
 
+.mb1 {
+  margin-bottom: 1em;
+}
+
+.mb2 {
+  margin-bottom: 2em;
+}
+
+.mb5 {
+  margin-bottom: 5em;
+}
+
+.mt2 {
+  margin-top: 2em;
+}
+
+.pl1 {
+  padding-left: 1em;
+}
+
 .button {
   cursor: pointer;
   padding: 10px;
@@ -112,21 +133,31 @@
   border-radius: 15px;
 }
 
+.text-centered {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .detail-rows-table {
   /* border: 0px solid var(--main-text-color); */
   border-collapse: collapse;
   border-spacing: 10px;
-  min-width: 1600px;
+  width: 100%;
 }
 
-.detail-rows-cell {
-  /* border: 0px solid var(--main-text-color); */
-  padding: 10px;
-  font-size: 80%;
+.table-data-cell {
+  padding: 5px 30px 5px 10px;
 }
 
-.centered {
-  text-align: center;
+.table-header-cell {
+  padding: 5px 30px 5px 10px;
 }
 
 .detail-rows-row:nth-child(odd) {
@@ -149,13 +180,13 @@
 }
 
 .summary-card {
-  border: 1px;
+  border: 2px;
   border-color: var(--secondary-background-color);
   border-style: solid;
   border-radius: 1%;
   padding: 2em;
-  width: 400px;
-  height:250px;
+  width: 300px;
+  height:200px;
 }
 
 .summary-card .date {
@@ -190,15 +221,6 @@
   font-size:5em;
 }
 
-.summary-card .cnt-percent .cnt-total {
-  font-weight: 700;
-  font-size: 3em;
-}
-
-.summary-card .details {
-  width:200px;
-}
-
 .dropdown {
   text-align: left;
 }
@@ -215,7 +237,17 @@
   border: 2px;
   border-color: grey;
   border-style: solid;
-  padding-left: 1em;
+  padding-left: 5px;
+}
+
+.detail-section-title-row {
+  margin-bottom: 1em;
+  font-weight: 800;
+}
+
+.long-text-block {
+  overflow: auto;
+  width: 700px;
 }
 
 .unselected-table-row {
@@ -235,5 +267,4 @@
 .selected-background {
   background-color: var(--selected-background-color);
   color: var(--selected-text-color);
-  margin-bottom: 2em;
 }
