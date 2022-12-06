@@ -1,14 +1,14 @@
-import { openAsDialog } from '@dexter/offer-selector-tool';
-import { createPlaceholderEngine } from '@dexter/tacocat-core';
+import { openAsDialog } from '../../node_modules/@dexter/offer-selector-tool/src/dialog.jsx';
+import { createPlaceholderEngine } from '../../node_modules/@dexter/tacocat-core/src/placeholderEngine.js';
 import {
-  createWcsClient,
-  createWcsPlaceholderProvider,
-  wcsPendingHtmlPlaceholderTemplate,
   wcsRejectedHtmlPlaceholderTemplate,
   wcsPriceHtmlPlaceholderTemplate,
   wcsPriceOpticalHtmlPlaceholderTemplate,
   wcsPriceStrikethroughHtmlPlaceholderTemplate,
-} from '@dexter/tacocat-wcs-client';
+} from '../../node_modules/@dexter/tacocat-wcs-client/src/wcsPlaceholderTemplates.js';
+import { createWcsClient } from '../../node_modules/@dexter/tacocat-wcs-client/src/wcsClient.js';
+import { createWcsPlaceholderProvider } from '../../node_modules/@dexter/tacocat-wcs-client/src/wcsPlaceholderProvider.js';
+import { wcsPendingHtmlPlaceholderTemplate } from '../../node_modules/@dexter/tacocat-wcs-client/src/wcsPlaceholderTemplates.js';
 
 let closeDialog;
 
@@ -118,7 +118,6 @@ const appContext = {
 export const initOst = async (el) => {
   const root = document.getElementById('root');
   const onSelectHandler = (offerSelectorId, type, offer, options) => {
-    log.debug(offerSelectorId, type, offer, options);
     closeDialog();
   };
   console.log(closeDialog);

@@ -6,7 +6,6 @@ const loadOst = async (a) => {
 
 export default function init(el) {
   if (document.location.pathname.includes('/tools/ost')) {
-    console.log('it does');
     loadOst(el);
   }
 }
