@@ -1,12 +1,4 @@
-import React from 'react';
-import { createContext } from 'react';
-import ReactDOM from 'react-dom';
-
-import { EnvProvider } from '@pandora/react-env-provider';
-import { FetchProvider } from '@pandora/react-fetch-provider';
-import { AuthProvider } from '@pandora/react-auth-provider';
-import { defaultTheme, Provider } from '@adobe/react-spectrum';
-import { OfferSelectorTool, openAsDialog } from '@dexter/offer-selector-tool';
+import { openAsDialog } from '@dexter/offer-selector-tool';
 import { createPlaceholderEngine } from '@dexter/tacocat-core';
 import {
   createWcsClient,
@@ -21,53 +13,53 @@ import {
 let closeDialog;
 
 let onCancelCustom = () => {
-    log.debug('Clicked on cancel - custom behaviour');
-    if (closeDialog) closeDialog();
+  log.debug('Clicked on cancel - custom behaviour');
+  if (closeDialog) closeDialog();
 };
 
 const engine = (wcsApiKey, wcsBaseUrl) =>
-    createPlaceholderEngine().register(
-        createWcsPlaceholderProvider(
-            createWcsClient({
-                apiKey: wcsApiKey,
-                env,
-                environment,
-                landscape,
-                baseUrl: wcsBaseUrl,
-            }),
-            {
-                checkoutWorkflow: 'UCv3',
-            }
-        ),
-        wcsPendingHtmlPlaceholderTemplate,
-        wcsRejectedHtmlPlaceholderTemplate,
-        wcsPriceHtmlPlaceholderTemplate,
-        wcsPriceOpticalHtmlPlaceholderTemplate,
-        wcsPriceStrikethroughHtmlPlaceholderTemplate
-    );
+  createPlaceholderEngine().register(
+    createWcsPlaceholderProvider(
+      createWcsClient({
+        apiKey: wcsApiKey,
+        env,
+        environment,
+        landscape,
+        baseUrl: wcsBaseUrl,
+      }),
+      {
+        checkoutWorkflow: 'UCv3',
+      }
+    ),
+    wcsPendingHtmlPlaceholderTemplate,
+    wcsRejectedHtmlPlaceholderTemplate,
+    wcsPriceHtmlPlaceholderTemplate,
+    wcsPriceOpticalHtmlPlaceholderTemplate,
+    wcsPriceStrikethroughHtmlPlaceholderTemplate
+  );
 
-    const placeholderTypes = [
-      {
-          type: 'price',
-          name: 'Price',
-          description: 'Formatted price, can be inlined with neighbour text',
-          doc: '#',
-      },
-      {
-          type: 'priceOptical',
-          name: 'Optical price',
-          description:
-              'Formatted price calculating monthly payments for annual plans, can be inlined with neighbour text',
-          doc: '#',
-      },
-      {
-          type: 'priceStrikethrough',
-          name: 'Strikethrough price',
-          description:
-              'Formatted price displayed as strikethrough, can be inlined with neighbour text',
-          doc: '#',
-      },
-  ];
+const placeholderTypes = [
+  {
+    type: 'price',
+    name: 'Price',
+    description: 'Formatted price, can be inlined with neighbour text',
+    doc: '#',
+  },
+  {
+    type: 'priceOptical',
+    name: 'Optical price',
+    description:
+      'Formatted price calculating monthly payments for annual plans, can be inlined with neighbour text',
+    doc: '#',
+  },
+  {
+    type: 'priceStrikethrough',
+    name: 'Strikethrough price',
+    description:
+      'Formatted price displayed as strikethrough, can be inlined with neighbour text',
+    doc: '#',
+  },
+];
 
 const country = 'US';
 const language = 'en';
@@ -80,21 +72,20 @@ let wcsApiKey = 'dexter-commerce-web-artifacts';
 let aosApiKey = 'dexter-commerce-offers';
 
 if (env === ProviderEnvironment.PRODUCTION) {
-    wcsBaseUrl = 'https://wcs.adobe.io';
-    landscape = Landscape.PUBLISHED;
-    wcsApiKey = 'wcms-commerce-ims-ro-user-cc';
-    aosApiKey = 'wcms-commerce-ims-user-prod';
+  wcsBaseUrl = 'https://wcs.adobe.io';
+  landscape = Landscape.PUBLISHED;
+  wcsApiKey = 'wcms-commerce-ims-ro-user-cc';
+  aosApiKey = 'wcms-commerce-ims-user-prod';
 }
 
 const appContext = {
   aosParams: {
-      marketSegment: 'COM',
-      offerType: 'BASE',
+    marketSegment: 'COM',
+    offerType: 'BASE',
   },
   apiKey: aosApiKey,
   accessToken:
-      process.env.AOS_ACCESS_TOKEN ||
-      localStorage.getItem('AOS_ACCESS_TOKEN'),
+    process.env.AOS_ACCESS_TOKEN || localStorage.getItem('AOS_ACCESS_TOKEN'),
   env,
   environment,
   landscape,
@@ -102,20 +93,20 @@ const appContext = {
   engine: engine(wcsApiKey, wcsBaseUrl),
   country,
   globals: [
-      {
-          checkoutWorkflow: 'UCv3',
-          country,
-          language,
-      },
+    {
+      checkoutWorkflow: 'UCv3',
+      country,
+      language,
+    },
   ],
   defaultPlaceholderOptions: {
-      displayFormatted: true,
-      displayRecurrence: true,
-      displayPerUnit: true,
-      displayTax: false,
+    displayFormatted: true,
+    displayRecurrence: true,
+    displayPerUnit: true,
+    displayTax: false,
   },
   offerSelectorPlaceholderOptions: {
-      // displayFormatted: false,
+    // displayFormatted: false,
   },
   placeholderTypes,
   showPlaceholderOptions: true,
@@ -126,48 +117,10 @@ const appContext = {
 
 export const initOst = async (el) => {
   const root = document.getElementById('root');
-  const params = new URLSearchParams(document.location.search);
-  const test = params.get('test');
-  switch (test) {
-      case 'dialog':
-          {
-              const onSelectHandler = (offerSelectorId, type, offer, options) => {
-                  log.debug(offerSelectorId, type, offer, options);
-                  closeDialog();
-              };
-              closeDialog = openAsDialog(root, onSelectHandler, appContext);
-          }
-          break;
-      default:
-          {
-              const authProvider = {
-                  getAccessToken: () => {
-                      return appContext.accessToken;
-                  },
-              };
-              const onSelectHandler = (offerSelectorId, type, offer, options) => {
-                  log.debug(offerSelectorId, type, offer, options);
-              };
-              const App = () => {
-                  return (
-                      <Provider theme={defaultTheme}>
-                          <EnvProvider value={appContext.environment}>
-                              <AuthProvider value={authProvider}>
-                                  <FetchProvider>
-                                      <OfferSelectorTool
-                                          appContext={appContext}
-                                          onSelect={onSelectHandler}
-                                      />
-                                  </FetchProvider>
-                              </AuthProvider>
-                          </EnvProvider>
-                      </Provider>
-                  );
-              };
-
-              ReactDOM.render(<App />, root);
-          }
-          break;
-    }
+  const onSelectHandler = (offerSelectorId, type, offer, options) => {
+    log.debug(offerSelectorId, type, offer, options);
+    closeDialog();
+  };
+  console.log(closeDialog);
+  closeDialog = openAsDialog(root, onSelectHandler, appContext);
 };
-console.log("hello world");
