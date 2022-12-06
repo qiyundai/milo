@@ -4,9 +4,6 @@ import { initOst } from '../../deps/ost-wrapper.js';
 const loadOst = async (a) => {
   console.log("hello");
   initOst(a);
-  const container = document.createElement('div');
-  container.classList.add('ost-container');
-  a.insertAdjacentElement('afterbegin', container);
 };
 
 export default function init(el) {
