@@ -21,7 +21,8 @@ module.exports = {
     }],
     'no-unused-expressions': 0,
     'chai-friendly/no-unused-expressions': 2,
-
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
   },
   overrides: [
     {

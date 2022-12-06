@@ -7,7 +7,8 @@ const blocks = [
   'fragment',
   'how-to',
   'modal',
-  'review',
+  'ost',
+  'review'
 ];
 
 export default blocks;

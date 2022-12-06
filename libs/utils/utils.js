@@ -28,6 +28,7 @@ const MILO_BLOCKS = [
   'media',
   'merch',
   'modal',
+  'ost',
   'pdf-viewer',
   'quote',
   'review',
