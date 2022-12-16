@@ -67,12 +67,12 @@ export function readBlockConfig(block) {
  * fetches blog article index.
  * @returns {object} index with data and path lookup
  */
-export async function fetchBlogArticleIndex() {
+export async function fetchBlogArticleIndex(targetSheet) {
   const pageSize = 500;
 
   if (blogIndex.complete) return (blogIndex);
-
-  return fetch(`${getConfig().locale.contentRoot}/query-index.json?limit=${pageSize}&offset=${blogIndex.offset}`)
+  const sheetUrl = targetSheet || `${getConfig().locale.contentRoot}/query-index.json`;
+  return fetch(`${sheetUrl}?limit=${pageSize}&offset=${blogIndex.offset}`)
     .then((response) => response.json())
     .then((json) => {
       const complete = (json.limit + json.offset) === json.total;
@@ -415,6 +415,7 @@ async function decorateArticleFeed(
   feed = { data: [], complete: false, cursor: 0 },
   limit = 12,
 ) {
+  console.log(config);
   let articleCards = articleFeedEl.querySelector('.article-cards');
 
   if (!articleCards) {
